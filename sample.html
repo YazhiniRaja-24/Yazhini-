@@ -39,28 +39,41 @@
     ol {
       list-style-type: decimal;
       margin-left: 20px;
-    }
-
-    ul {
-      list-style-type: circle;
-      margin: 10px 0 15px 30px;
+      padding: 0;
     }
 
     li {
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
 
     label {
       font-weight: 500;
+      display: block;
+      margin-bottom: 8px;
     }
 
     input, select, textarea {
       width: 100%;
       padding: 10px;
-      margin: 5px 0 15px;
+      margin-top: 4px;
       border: 1px solid #ccc;
       border-radius: 8px;
       font-family: "Poppins", sans-serif;
+    }
+
+    /* 🔥 Fix for Gender section */
+    .gender-options {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-left: 15px;
+    }
+
+    .gender-options label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: normal;
     }
 
     button {
@@ -118,11 +131,11 @@
 
       <li>
         <label>Gender:</label>
-        <ul>
-          <li><input type="radio" name="gender" value="male" /> Male</li>
-          <li><input type="radio" name="gender" value="female" /> Female</li>
-          <li><input type="radio" name="gender" value="other" /> Other</li>
-        </ul>
+        <div class="gender-options">
+          <label><input type="radio" name="gender" value="male" /> Male</label>
+          <label><input type="radio" name="gender" value="female" /> Female</label>
+          <label><input type="radio" name="gender" value="other" /> Other</label>
+        </div>
       </li>
 
       <li>
