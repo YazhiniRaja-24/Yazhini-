@@ -3,68 +3,149 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sample Page</title>
+  <title>Registration Form</title>
 
   <style>
     body {
       margin: 0;
       padding: 0;
       font-family: "Poppins", sans-serif;
-      background: linear-gradient(135deg, #ffe6e6, #ffc1c1);
-      color: #222;
+      background: linear-gradient(135deg, #d4fc79, #96e6a1);
+      color: #333;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      text-align: center;
+      min-height: 100vh;
     }
 
     h1 {
-      font-size: 2.5rem;
-      color: #d63384;
+      color: #1b5e20;
+      font-size: 2.4rem;
+      margin-bottom: 15px;
+      text-align: center;
     }
 
-    p {
-      max-width: 700px;
-      font-size: 1.1rem;
-      margin-bottom: 30px;
-      color: #444;
+    form {
+      background-color: #fff;
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+      width: 90%;
+      max-width: 500px;
+      text-align: left;
     }
 
-    a {
-      text-decoration: none;
-      background-color: #ff6f91;
-      color: white;
-      padding: 12px 28px;
-      border-radius: 30px;
-      transition: all 0.3s ease;
+    ol {
+      list-style-type: decimal;
+      margin-left: 20px;
+    }
+
+    ul {
+      list-style-type: circle;
+      margin: 10px 0 15px 30px;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    label {
       font-weight: 500;
     }
 
-    a:hover {
-      background-color: #c2185b;
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: "Poppins", sans-serif;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #43a047;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2e7d32;
       transform: scale(1.05);
     }
 
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      color: #2e7d32;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
     footer {
-      position: absolute;
-      bottom: 20px;
+      margin-top: 20px;
       font-size: 0.9rem;
       color: #555;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to the Sample Page 🌼</h1>
+  <h1>Registration Form 🌱</h1>
 
-  <p>
-    This page is linked from the home page. It demonstrates how to navigate
-    between HTML pages easily using simple links and a bit of CSS styling.
-  </p>
+  <form>
+    <ol>
+      <li>
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" placeholder="Enter your full name" required />
+      </li>
 
-  <a href="index.html">← Back to Home</a>
+      <li>
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" placeholder="Enter your email" required />
+      </li>
 
-  <footer>© 2025 My Website | Crafted with ❤️</footer>
+      <li>
+        <label>Gender:</label>
+        <ul>
+          <li><input type="radio" name="gender" value="male" /> Male</li>
+          <li><input type="radio" name="gender" value="female" /> Female</li>
+          <li><input type="radio" name="gender" value="other" /> Other</li>
+        </ul>
+      </li>
+
+      <li>
+        <label for="course">Course:</label>
+        <select id="course" required>
+          <option value="">Select your course</option>
+          <option value="bca">BCA</option>
+          <option value="bsc">B.Sc Computer Science</option>
+          <option value="be">B.E Computer Engineering</option>
+        </select>
+      </li>
+
+      <li>
+        <label for="message">Address / Comments:</label>
+        <textarea id="message" rows="4" placeholder="Enter your address or comment"></textarea>
+      </li>
+    </ol>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <a href="index.html" class="back-link">← Back to Home</a>
+
+  <footer>© 2025 Registration Portal | Built with 💚 by Yalu</footer>
 </body>
 </html>
