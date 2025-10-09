@@ -1,14 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sample Page</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sample Page</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #ffe6e6, #ffc1c1);
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #d63384;
+    }
+
+    p {
+      max-width: 700px;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      color: #444;
+    }
+
+    a {
+      text-decoration: none;
+      background-color: #ff6f91;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    a:hover {
+      background-color: #c2185b;
+      transform: scale(1.05);
+    }
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
 </head>
 <body>
-    <h1>Welcome to the Sample Page!</h1>
-    <p>This is a simple example linked from the index page.</p>
+  <h1>Welcome to the Sample Page 🌼</h1>
 
-    <a href="index.html">Go back to Home</a>
+  <p>
+    This page is linked from the home page. It demonstrates how to navigate
+    between HTML pages easily using simple links and a bit of CSS styling.
+  </p>
+
+  <a href="index.html">← Back to Home</a>
+
+  <footer>© 2025 My Website | Crafted with ❤️</footer>
 </body>
 </html>
