@@ -1,33 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Flexbox with YouTube Embed</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
         .container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            height: 100vh;
+            display: flex;               /* Flexbox */
+            gap: 10px;                   /* Space between items */
+            justify-content: center;      /* Center horizontally */
+            align-items: center;         /* Center vertically */
+            flex-wrap: wrap;             /* Wrap if needed on smaller screens */
+            border: 1px solid #ccc;
+            padding: 10px;
         }
 
         .item {
-            background: rgb(170, 225, 243);
+            background-color: #4CAF50;
+            color: white;
             padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 25px;
+            text-align: center;
+            flex: 1;                     /* Items grow equally */
+            min-width: 150px;            /* Prevent too small on mobile */
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 560px;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            margin: 20px auto; /* Center video */
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="item">Item 1</div>
-        <div class="item">Item 2</div>
-        <div class="item">Item 3</div>
+
+<h2>Flexbox Items with Embedded YouTube Video</h2>
+
+<div class="container">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+</div>
+
+<div class="video-container">
+    <iframe 
+        src="https://www.youtube.com/embed/TPij4SXTy28?si=Lb8zkGHiDKhjxB_B" 
+        title="YouTube video player" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        allowfullscreen>
+    </iframe>
     </div>
-    <p>Flexbox must have a parent element with the display property set to flex or inline-flex.</p>
-<p>Direct child elements of the flex container automatically becomes flex items.</p>
+    <div class = "video-container">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d68611.58458628769!2d77.07316121092362!3d11.046835981331768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1759985762455!5m2!1sen!2sin" 
+    width="600" height="450" 
+    style="border:0;" allowfullscreen="" 
+    loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+</div>
 </body>
 </html>
