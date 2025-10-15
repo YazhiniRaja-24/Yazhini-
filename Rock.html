@@ -1,0 +1,312 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors - Neon Theme</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #0f0f0f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+        }
+
+        .game-container {
+            background: #1a1a1a;
+            padding: 40px 60px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 0 20px #00ffcc, 0 0 40px #ff00ff;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px #00ffcc, 0 0 20px #ff00ff;
+        }
+
+        .choices button {
+            font-size: 20px;
+            margin: 15px;
+            padding: 15px 25px;
+            border: 2px solid #00ffcc;
+            border-radius: 15px;
+            cursor: pointer;
+            background: transparent;
+            color: #00ffcc;
+            text-shadow: 0 0 5px #00ffcc;
+            transition: all 0.2s;
+        }
+
+        .choices button:hover {
+            background: #00ffcc;
+            color: #1a1a1a;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px #00ffcc, 0 0 40px #ff00ff;
+        }
+
+        .result {
+            margin-top: 25px;
+            font-size: 1.2em;
+        }
+
+        #winner {
+            font-size: 1.5em;
+            margin-top: 15px;
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffcc;
+        }
+
+        .reset {
+            margin-top: 25px;
+            padding: 10px 20px;
+            border: 2px solid #ff00ff;
+            border-radius: 12px;
+            background: transparent;
+            color: #ff00ff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .reset:hover {
+            background: #ff00ff;
+            color: #1a1a1a;
+            box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffcc;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Rock Paper Scissors</h1>
+        <div class="choices">
+            <button onclick="play('rock')">✊ Rock</button>
+            <button onclick="play('paper')">✋ Paper</button>
+            <button onclick="play('scissors')">✌️ Scissors</button>
+        </div>
+        <div class="result">
+            <p id="player-choice">Your choice: </p>
+            <p id="computer-choice">Computer choice: </p>
+            <h2 id="winner"></h2>
+        </div>
+        <button class="reset" onclick="resetGame()">Reset</button>
+    </div>
+
+    <script>
+        function play(playerChoice) {
+            const choices = ['rock', 'paper', 'scissors'];
+            const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+
+            document.getElementById('player-choice').textContent = `Your choice: ${playerChoice}`;
+            document.getElementById('computer-choice').textContent = `Computer choice: ${computerChoice}`;
+
+            let winnerText = '';
+
+            if (playerChoice === computerChoice) {
+                winnerText = "It's a Tie!";
+            } else if (
+                (playerChoice === 'rock' && computerChoice === 'scissors') ||
+                (playerChoice === 'paper' && computerChoice === 'rock') ||
+                (playerChoice === 'scissors' && computerChoice === 'paper')
+            ) {
+                winnerText = "You Win! 🎉";
+            } else {
+                winnerText = "Computer Wins! 🤖";
+            }
+
+            document.getElementById('winner').textContent = winnerText;
+        }
+
+        function resetGame() {
+            document.getElementById('player-choice').textContent = "Your choice: ";
+            document.getElementById('computer-choice').textContent = "Computer choice: ";
+            document.getElementById('winner').textContent = "";
+        }
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors - Animated</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #0d0d0d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+        }
+
+        .game-container {
+            background: #1a1a1a;
+            padding: 40px 60px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 0 20px #00ffcc, 0 0 40px #ff00ff;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px #00ffcc, 0 0 20px #ff00ff;
+        }
+
+        .choices button {
+            font-size: 20px;
+            margin: 15px;
+            padding: 15px 25px;
+            border: 2px solid #00ffcc;
+            border-radius: 15px;
+            cursor: pointer;
+            background: transparent;
+            color: #00ffcc;
+            text-shadow: 0 0 5px #00ffcc;
+            transition: all 0.2s;
+        }
+
+        .choices button:hover {
+            background: #00ffcc;
+            color: #1a1a1a;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px #00ffcc, 0 0 40px #ff00ff;
+        }
+
+        .result {
+            margin-top: 30px;
+            font-size: 1.2em;
+        }
+
+        #winner {
+            font-size: 1.5em;
+            margin-top: 15px;
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffcc;
+        }
+
+        .hands {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            gap: 50px;
+            font-size: 60px;
+            min-height: 80px;
+        }
+
+        .shake {
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes shake {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(15deg); }
+            50% { transform: rotate(-15deg); }
+            75% { transform: rotate(10deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .reset {
+            margin-top: 25px;
+            padding: 10px 20px;
+            border: 2px solid #ff00ff;
+            border-radius: 12px;
+            background: transparent;
+            color: #ff00ff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .reset:hover {
+            background: #ff00ff;
+            color: #1a1a1a;
+            box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffcc;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Rock Paper Scissors</h1>
+        <div class="choices">
+            <button onclick="play('rock')">✊ Rock</button>
+            <button onclick="play('paper')">✋ Paper</button>
+            <button onclick="play('scissors')">✌️ Scissors</button>
+        </div>
+        <div class="hands">
+            <div id="player-hand">❔</div>
+            <div id="computer-hand">❔</div>
+        </div>
+        <div class="result">
+            <h2 id="winner"></h2>
+        </div>
+        <button class="reset" onclick="resetGame()">Reset</button>
+    </div>
+
+    <script>
+        const handIcons = {
+            rock: '✊',
+            paper: '✋',
+            scissors: '✌️'
+        };
+
+        function play(playerChoice) {
+            const choices = ['rock', 'paper', 'scissors'];
+            const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+
+            const playerHand = document.getElementById('player-hand');
+            const computerHand = document.getElementById('computer-hand');
+            const winner = document.getElementById('winner');
+
+            // Start shaking
+            playerHand.textContent = '✊';
+            computerHand.textContent = '✊';
+            playerHand.classList.add('shake');
+            computerHand.classList.add('shake');
+            winner.textContent = '';
+
+            setTimeout(() => {
+                // Stop shaking and show choices
+                playerHand.classList.remove('shake');
+                computerHand.classList.remove('shake');
+
+                playerHand.textContent = handIcons[playerChoice];
+                computerHand.textContent = handIcons[computerChoice];
+
+                // Decide winner
+                let winnerText = '';
+                if (playerChoice === computerChoice) {
+                    winnerText = "It's a Tie!";
+                } else if (
+                    (playerChoice === 'rock' && computerChoice === 'scissors') ||
+                    (playerChoice === 'paper' && computerChoice === 'rock') ||
+                    (playerChoice === 'scissors' && computerChoice === 'paper')
+                ) {
+                    winnerText = "You Win! 🎉";
+                } else {
+                    winnerText = "Computer Wins! 🤖";
+                }
+
+                winner.textContent = winnerText;
+            }, 1000); // 1 second shake
+        }
+
+        function resetGame() {
+            document.getElementById('player-hand').textContent = '❔';
+            document.getElementById('computer-hand').textContent = '❔';
+            document.getElementById('winner').textContent = '';
+        }
+    </script>
+</body>
+</html>
