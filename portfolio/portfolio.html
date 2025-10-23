@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Yazhini R | Portfolio (Dark • FCBBF5)</title>
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<style>
+  :root{
+    --accent: #FCBBF5;
+    /* --bg: #000000;
+    --glass: rgba(12,12,14,0.62); */
+    --bg: #1a0a2e;
+--glass: rgba(26,10,46,0.62);
+
+    --glass-border: rgba(252,187,245,0.08);
+  }
+  html { scroll-behavior: smooth; }
+  body { margin:0; background:var(--bg); color:#eaeaf0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+  a { color:var(--accent); }
+  .blob{position:absolute;border-radius:9999px;filter:blur(80px);opacity:.12;z-index:-10;pointer-events:none;}
+  /* animated gradient background layer (hero) */
+  .hero-bg {
+    position: absolute; inset:0; z-index:0; pointer-events:none;
+    background: radial-gradient(600px 400px at 10% 20%, rgba(252,187,245,0.06), transparent 8%),
+                radial-gradient(500px 300px at 90% 80%, rgba(176,122,255,0.05), transparent 10%);
+    mix-blend-mode: screen;
+    animation: slowMove 16s linear infinite;
+  }
+  @keyframes slowMove {
+    0% { transform: translateY(0) translateX(0) scale(1); }
+    50% { transform: translateY(-10px) translateX(6px) scale(1.02); }
+    100% { transform: translateY(0) translateX(0) scale(1); }
+  }
+
+  /* glass */
+  .glass { background: var(--glass); backdrop-filter: blur(8px) saturate(120%); border:1px solid var(--glass-border); border-radius:1rem; box-shadow: 0 10px 40px rgba(0,0,0,0.65); }
+
+  /* reveal */
+  .reveal { opacity:0; transform: translateY(18px); transition: all .6s cubic-bezier(.2,.9,.2,1); }
+  .reveal.show { opacity:1; transform: translateY(0); }
+
+  /* progress bars */
+  .progress { background: rgba(255,255,255,0.04); border-radius:9999px; height:12px; overflow:hidden; }
+  .progress > span { display:block; height:100%; width:0%; background: linear-gradient(90deg,var(--accent), #b07aff); transition: width 1s ease; }
+
+  /* project tilt */
+  .project-card { perspective: 1000px; }
+  .project-inner { transition: transform .45s cubic-bezier(.2,.9,.2,1); transform-style: preserve-3d; }
+  .project-card:hover .project-inner { transform: rotateY(6deg) rotateX(3deg) scale(1.02); }
+
+  /* profile */
+  .profile-rect { width: 260px; height: 320px; object-fit: cover; border-radius: 18px; border: 3px solid rgba(252,187,245,0.12); box-shadow: 0 18px 50px rgba(0,0,0,0.6); }
+
+  /* certificate thumbnail */
+  .cert-thumb { width:120px; height:80px; object-fit:cover; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background: #070707; display:inline-block; }
+
+  /* small helpers */
+  .tag { background: rgba(252,187,245,0.09); color: var(--accent); padding: .25rem .5rem; border-radius:999px; font-size: .75rem; }
+
+  /* buttons */
+  .btn-accent { background: linear-gradient(90deg,var(--accent), #b07aff); color:#000; }
+  .btn-outline { border:1px solid rgba(252,187,245,0.14); color:var(--accent); background:transparent; }
+
+  /* modal backdrop */
+  .modal-backdrop { background: rgba(2,6,23,0.75); }
+
+  /* small responsiveness */
+  @media (max-width: 768px) {
+    .profile-rect { width: 180px; height: 230px; }
+  }
+
+  /* neon pulse for Send button */
+  .pulse { animation: pulseGlow 2.2s infinite; }
+  @keyframes pulseGlow {
+    0% { box-shadow: 0 6px 20px rgba(252,187,245,0.12); }
+    50% { box-shadow: 0 16px 36px rgba(252,187,245,0.18); }
+    100% { box-shadow: 0 6px 20px rgba(252,187,245,0.12); }
+  }
+</style>
+</head>
+<body>
+
+  <!-- decorative blobs -->
+  <div class="blob bg-[#3b0a3b] w-96 h-96 left-[-120px] top-20"></div>
+  <div class="blob bg-[#5b0f5b] w-72 h-72 right-[-80px] bottom-32"></div>
+
+  <!-- header -->
+  <header class="fixed w-full z-50 bg-black/60 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#home" class="text-xl font-extrabold" style="color:var(--accent)">Yazhini R</a>
+      <nav class="hidden md:block">
+        <ul class="flex gap-6 items-center text-sm">
+          <li><a href="#home" class="hover:underline">Home</a></li>
+          <li><a href="#about" class="hover:underline">About</a></li>
+          <li><a href="#skills" class="hover:underline">Skills</a></li>
+          <li><a href="#projects" class="hover:underline">Projects</a></li>
+          <li><a href="#certificates" class="hover:underline">Certificates</a></li>
+          <li><a href="#contact" class="hover:underline">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="md:hidden">
+        <button id="mobileMenuBtn" class="p-2 text-slate-300"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- mobile menu -->
+  <div id="mobileMenu" class="fixed inset-0 z-40 hidden modal-backdrop items-start pt-28">
+    <div class="mx-4 mt-6 glass p-4 w-full rounded-lg">
+      <ul class="flex flex-col gap-3">
+        <li><a href="#home" class="block py-2" onclick="closeMobile()">Home</a></li>
+        <li><a href="#about" class="block py-2" onclick="closeMobile()">About</a></li>
+        <li><a href="#skills" class="block py-2" onclick="closeMobile()">Skills</a></li>
+        <li><a href="#projects" class="block py-2" onclick="closeMobile()">Projects</a></li>
+        <li><a href="#certificates" class="block py-2" onclick="closeMobile()">Certificates</a></li>
+        <li><a href="#contact" class="block py-2" onclick="closeMobile()">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <main class="pt-28 relative">
+
+    <!-- animated hero background -->
+    <div class="hero-bg"></div>
+
+    <!-- HERO -->
+    <section id="home" class="max-w-6xl mx-auto px-6 py-12 grid lg:grid-cols-2 gap-8 items-center relative z-10">
+      <!-- left column -->
+      <div class="reveal">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-3" style="color:var(--accent)">Hello, I'm <span style="color:#fff">Yazhini R</span></h1>
+        <p class="text-slate-300 max-w-2xl mb-5">Frontend Developer & Designer — I build modern, accessible web and mobile experiences using React, Flutter, and MERN stack. I focus on polished UI, smooth micro-interactions and real-world problem solving.</p>
+
+        <div class="flex flex-wrap gap-3 items-center">
+          <a href="#projects" class="btn-accent px-5 py-3 rounded-full font-semibold shadow">View Projects</a>
+          <a href="mailto:yazhinir23cse@srishakthi.ac.in" class="btn-outline px-5 py-3 rounded-full font-medium">Hire Me</a>
+        </div>
+
+        <div class="mt-6 text-slate-300">
+          <div class="flex items-center gap-3">
+            <i class="fas fa-phone"></i>
+            <span>6381073058</span>
+            <span class="mx-2">•</span>
+            <i class="fas fa-envelope"></i>
+            <a href="mailto:yazhinir23cse@srishakthi.ac.in" style="color:var(--accent)" class="hover:underline">yazhinir23cse@srishakthi.ac.in</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- right column: profile + contact card -->
+      <div class="flex justify-center lg:justify-end">
+        <div class="space-y-4">
+          <div class="glass p-4 flex items-center justify-center">
+            <!-- rounded-rectangle profile image (online placeholder used; replace if you have local) -->
+           <img id="profileImg" src="images/IMG_2178.JPG" alt="Profile" class="profile-rect" />
+          </div>
+
+          <div class="glass p-4">
+            <h4 class="text-lg font-semibold" style="color:var(--accent)">Contact</h4>
+            <p class="text-slate-300 mt-1">Phone: <strong class="text-white">6381073058</strong></p>
+            <p class="text-slate-300">Email: <a href="mailto:yazhinir23cse@srishakthi.ac.in" style="color:var(--accent)">yazhinir23cse@srishakthi.ac.in</a></p>
+            <div class="mt-3 flex gap-3">
+              <a href="https://www.linkedin.com/in/yazhini-r-0ba8b8293/" target="_blank" class="glass p-2 rounded-md"><i class="fab fa-linkedin" style="color:var(--accent)"></i></a>
+              <a href="https://github.com/YazhiniRaja-24" target="_blank" class="glass p-2 rounded-md"><i class="fab fa-github" style="color:var(--accent)"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="max-w-6xl mx-auto px-6 py-8 reveal">
+      <div class="glass p-6 grid md:grid-cols-2 gap-6">
+        <div>
+          <h3 class="text-2xl font-bold" style="color:var(--accent)">About Me</h3>
+          <p class="text-slate-300 mt-3">I am a Computer Science student (BE CSE) at Sri Shakthi Institute. I build web & mobile applications with a focus on UI/UX, accessibility and real-world problem solving. I enjoy machine learning and cultural-tech work.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold" style="color:var(--accent)">Academic & Experience</h4>
+          <ul class="mt-3 text-slate-300 space-y-2 text-sm">
+            <li><strong>BE - Computer Science & Engineering</strong> — Sri Shakthi Institute (Current, 83% expected 2027)</li>
+            <li><strong>HSC</strong> — Metro Matriculation Higher Secondary School — 86.33% (2023)</li>
+            <li><strong>SSLC</strong> — SRSI Matriculation Higher Secondary School — 91% (2021)</li>
+            <li><strong>MERN Stack Internship</strong> — Jun 2025</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="max-w-6xl mx-auto px-6 py-8 reveal">
+      <h3 class="text-2xl font-bold" style="color:var(--accent)">Skills</h3>
+      <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+        <!-- Java -->
+        <div class="glass p-4">
+          <div class="flex items-center justify-between">
+            <div><i class="fab fa-java text-xl" style="color:var(--accent)"></i><h4 class="font-semibold mt-1">Java</h4></div>
+            <span class="tag">Pro</span>
+          </div>
+          <div class="mt-3 progress"><span data-perc="80%"></span></div>
+        </div>
+        <!-- JavaScript -->
+        <div class="glass p-4">
+          <div class="flex items-center justify-between">
+            <div><i class="fab fa-js-square text-xl" style="color:var(--accent)"></i><h4 class="font-semibold mt-1">JavaScript</h4></div>
+            <span class="tag">ES6+</span>
+          </div>
+          <div class="mt-3 progress"><span data-perc="76%"></span></div>
+        </div>
+        <!-- MySQL -->
+        <div class="glass p-4">
+          <div class="flex items-center justify-between">
+            <div><i class="fas fa-database text-xl" style="color:var(--accent)"></i><h4 class="font-semibold mt-1">MySQL</h4></div>
+            <span class="tag">DB</span>
+          </div>
+          <div class="mt-3 progress"><span data-perc="85%"></span></div>
+        </div>
+        <!-- MongoDB -->
+        <div class="glass p-4">
+          <div class="flex items-center justify-between">
+            <div><i class="fas fa-server text-xl" style="color:var(--accent)"></i><h4 class="font-semibold mt-1">MongoDB</h4></div>
+            <span class="tag">NoSQL</span>
+          </div>
+          <div class="mt-3 progress"><span data-perc="80%"></span></div>
+        </div>
+        <!-- Flutter -->
+        <div class="glass p-4">
+          <div class="flex items-center justify-between">
+            <div><i class="fas fa-mobile-alt text-xl" style="color:var(--accent)"></i><h4 class="font-semibold mt-1">Flutter</h4></div>
+            <span class="tag">Mobile</span>
+          </div>
+          <div class="mt-3 progress"><span data-perc="75%"></span></div>
+        </div>
+        <!-- React -->
+        <div class="glass p-4">
+          <div class="flex items-center justify-between">
+            <div><i class="fab fa-react text-xl" style="color:var(--accent)"></i><h4 class="font-semibold mt-1">React.js</h4></div>
+            <span class="tag">Frontend</span>
+          </div>
+          <div class="mt-3 progress"><span data-perc="70%"></span></div>
+        </div>
+        <!-- MS Office -->
+        <div class="glass p-4">
+          <div class="flex items-center justify-between">
+            <div><i class="fas fa-file-alt text-xl" style="color:var(--accent)"></i><h4 class="font-semibold mt-1">MS Office</h4></div>
+            <span class="tag">Tools</span>
+          </div>
+          <div class="mt-3 progress"><span data-perc="80%"></span></div>
+        </div>
+        <!-- HTML -->
+        <div class="glass p-4">
+          <div class="flex items-center justify-between">
+            <div><i class="fab fa-html5 text-xl" style="color:var(--accent)"></i><h4 class="font-semibold mt-1">HTML</h4></div>
+            <span class="tag">Markup</span>
+          </div>
+          <div class="mt-3 progress"><span data-perc="96%"></span></div>
+        </div>
+        <!-- CSS / Bootstrap -->
+        <div class="glass p-4">
+          <div class="flex items-center justify-between">
+            <div><i class="fab fa-css3-alt text-xl" style="color:var(--accent)"></i><h4 class="font-semibold mt-1">CSS / Bootstrap</h4></div>
+            <span class="tag">Styling</span>
+          </div>
+          <div class="mt-3 progress"><span data-perc="92%"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="max-w-6xl mx-auto px-6 py-8 reveal">
+      <h3 class="text-2xl font-bold" style="color:var(--accent)">Projects</h3>
+      <div id="projectsGrid" class="grid md:grid-cols-2 gap-6 mt-4"></div>
+    </section>
+
+    <!-- CERTIFICATES -->
+    <section id="certificates" class="max-w-6xl mx-auto px-6 py-8 reveal">
+      <h3 class="text-2xl font-bold" style="color:var(--accent)">Certificates</h3>
+      <div id="certGrid" class="grid md:grid-cols-2 gap-6 mt-4"></div>
+    </section>
+
+    <!-- CONTACT
+    <section id="contact" class="max-w-6xl mx-auto px-6 py-8 reveal">
+      <h3 class="text-2xl font-bold" style="color:var(--accent)">Contact</h3>
+      <div class="grid md:grid-cols-2 gap-6 mt-4">
+        <form id="contactForm" class="glass p-6 space-y-4">
+          <input id="cname" placeholder="Your name" required />
+          <input id="cemail" type="email" placeholder="Your email" required />
+          <textarea id="cmessage" rows="5" placeholder="Your message" required></textarea>
+          <button id="sendBtn" class="btn-accent px-4 py-2 rounded-md w-full pulse">Send Message</button>
+          <p id="formStatus" class="text-slate-300 text-sm"></p>
+        </form>
+
+        <div class="space-y-4">
+          <div class="glass p-4">
+            <h4 class="font-semibold" style="color:var(--accent)">Get in touch</h4>
+            <p class="text-slate-300 mt-2">Phone: <strong class="text-white">6381073058</strong></p>
+            <p class="text-slate-300">Email: <a href="mailto:yazhinir23cse@srishakthi.ac.in" style="color:var(--accent)">yazhinir23cse@srishakthi.ac.in</a></p>
+            <p class="mt-3 italic text-slate-400">"Let’s build something amazing together."</p>
+          </div>
+
+          <div class="glass p-4">
+            <h4 class="font-semibold" style="color:var(--accent)">Social</h4>
+            <div class="flex gap-3 mt-3">
+              <a href="https://www.linkedin.com/in/yazhini-r-0ba8b8293/" target="_blank" class="glass p-3 rounded-md"><i class="fab fa-linkedin" style="color:var(--accent)"></i></a>
+              <a href="https://github.com/YazhiniRaja-24" target="_blank" class="glass p-3 rounded-md"><i class="fab fa-github" style="color:var(--accent)"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- CONTACT -->
+  <section id="contact" class="max-w-6xl mx-auto px-6 py-8 reveal">
+    <h3 class="text-2xl font-bold mb-4" style="color:var(--accent)">Contact</h3>
+    <div class="grid md:grid-cols-2 gap-8 mt-4">
+      <!-- Form -->
+      <form id="contactForm" class="glass p-6 space-y-4 flex flex-col">
+        <input id="cname" class="p-3 rounded-md bg-black/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-400" placeholder="Your Name" required />
+        <input id="cemail" type="email" class="p-3 rounded-md bg-black/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-400" placeholder="Your Email" required />
+        <textarea id="cmessage" rows="5" class="p-3 rounded-md bg-black/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-400" placeholder="Your Message" required></textarea>
+        <button id="sendBtn" class="btn-accent px-4 py-3 rounded-md w-full pulse font-semibold">Send Message</button>
+        <p id="formStatus" class="text-slate-300 text-sm mt-2"></p>
+      </form>
+
+      <!-- Info & Social -->
+      <div class="space-y-4">
+        <div class="glass p-6">
+          <h4 class="font-semibold mb-2" style="color:var(--accent)">Get in Touch</h4>
+          <p class="text-slate-300">Phone: <strong class="text-white">6381073058</strong></p>
+          <p class="text-slate-300">Email: <a href="mailto:yazhinir23cse@srishakthi.ac.in" style="color:var(--accent)">yazhinir23cse@srishakthi.ac.in</a></p>
+          <p class="mt-3 italic text-slate-400">"Let’s build something amazing together."</p>
+        </div>
+        <div class="glass p-6 text-center">
+          <h4 class="font-semibold mb-3" style="color:var(--accent)">Social Links</h4>
+          <div class="flex justify-center gap-4">
+            <a href="https://www.linkedin.com/in/yazhini-r-0ba8b8293/" target="_blank" class="glass p-3 rounded-md"><i class="fab fa-linkedin" style="color:var(--accent); font-size:1.25rem;"></i></a>
+            <a href="https://github.com/YazhiniRaja-24" target="_blank" class="glass p-3 rounded-md"><i class="fab fa-github" style="color:var(--accent); font-size:1.25rem;"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <footer class="mt-8">
+      <div class="max-w-6xl mx-auto px-6 py-6 text-center text-slate-400">© <span id="year"></span> Yazhini R • Built with ❤️</div>
+    </footer>
+  </main>
+
+  <!-- Project modal -->
+  <div id="modal" class="fixed inset-0 hidden items-center justify-center modal-backdrop z-50">
+    <div class="glass max-w-3xl w-full mx-4 overflow-hidden">
+      <div class="flex items-center justify-between p-4 border-b border-white/4">
+        <strong id="modalTitle" class="text-lg"></strong>
+        <button id="modalClose" class="text-slate-200 text-xl">&times;</button>
+      </div>
+      <div id="modalBody" class="p-4"></div>
+    </div>
+  </div>
+
+<script>
+/* ---------------- Data ---------------- */
+const projects = [
+  {
+    title: "E-commerce Website for Home Decor (The Decorkart)",
+    short: "Home decor e-commerce: product view, cart, checkout, responsive UI.",
+    img: "images/bg6.jpeg",
+
+    long: `<p>Home Decor is a stylish e-commerce website where users can explore and buy elegant decor items to beautify their living spaces. Features: product view, add-to-cart, checkout flow, responsive layouts and modern UI.</p>`
+  },
+  {
+    title: "Facial Emotion Recognition",
+    short: "Detects emotions from facial expressions using CV + ML.",
+    img: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=0c2efb7a7e4a6b9d5d6c7a8b9c0d1e2f",
+    long: `<p>Facial Emotion Recognition identifies emotions from facial expressions using computer vision and machine learning (CNNs). Real-time webcam inference and evaluation on emotion datasets.</p>`
+  },
+  {
+    title: "Ancient Tamil Decoding",
+    short: "Translates ancient Tamil inscriptions into modern Tamil for preservation.",
+    img: "https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=2d6a1c3b4f5a6b7c8d9e0a1b2c3d4e5f",
+    long: `<p>Ancient Tamil Decoding translates ancient inscriptions into modern Tamil to preserve cultural heritage. Uses OCR, script mapping and expert-reviewed outputs to ensure accuracy.</p>`
+  },
+  {
+    title: "NoteBuddy",
+    short: "Smart note organizer with AI summarization & voice recording.",
+    img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=b9f2a1a3c2d3e4f5a6b7c8d9e0f1a2b3",
+    long: `<p>NoteBuddy is a smart note organizer featuring add/edit/delete, AI summarization, voice recording, and color tagging. Local-first with optional cloud sync.</p>`
+  }
+];
+
+const certificates = [
+  { title: "IAENG Certificate", pdf: "certificates/IAENG.pdf", thumb: "https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=4ef2aa8edfdfb5c6a9b6d7c3e8f2b1c2", org: "IAENG" },
+  { title: "IJPREMS Publication", pdf: "certificates/IJPREMS41200037528-3.pdf", thumb: "https://images.unsplash.com/photo-1526318472351-c75fcf070dd2?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=7b9a3c8f2b6d1a4c9e5d2a3b1f3c4d5e", org: "IJPREMS" },
+  { title: "MERN Certificate", pdf: "certificates/mern_certificate.pdf", thumb: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=3a5b6c7d8e9f1a2b3c4d5e6f7a8b9c0d", org: "MERN Internship" },
+  { title: "MHTechin Certificate", pdf: "certificates/MHTechin.pdf", thumb: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6", org: "MHTechin" }
+];
+
+/* ---------- Render projects ---------- */
+const projectsGrid = document.getElementById('projectsGrid');
+projects.forEach(p=>{
+  const card = document.createElement('div');
+  card.className = 'project-card reveal';
+  card.innerHTML = `
+    <div class="project-inner glass p-4">
+      <img src="${p.img}" alt="${p.title}" class="w-full h-48 object-cover rounded-md mb-3" />
+      <h4 class="font-semibold" style="color:var(--accent)">${p.title}</h4>
+      <p class="text-slate-300 text-sm mt-1">${p.short}</p>
+      <div class="mt-3 flex gap-2">
+        <button data-title="${p.title}" class="openModal px-3 py-2 rounded-md btn-accent text-sm">Preview</button>
+        <a href="#" class="px-3 py-2 rounded-md btn-outline text-sm">Source</a>
+      </div>
+    </div>
+  `;
+  projectsGrid.appendChild(card);
+});
+
+/* ---------- Render certificates ---------- */
+const certGrid = document.getElementById('certGrid');
+certificates.forEach(c=>{
+  const el = document.createElement('div');
+  el.className = 'glass p-4 reveal flex items-center gap-4';
+  el.innerHTML = `
+    <img src="${c.thumb}" class="cert-thumb" alt="${c.title}" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg'"/>
+    <div>
+      <h4 class="font-semibold">${c.title}</h4>
+      <p class="text-slate-300 text-sm mt-1">${c.org}</p>
+      <div class="mt-3">
+        <a href="${c.pdf}" target="_blank" class="px-3 py-2 rounded-md btn-accent text-sm">View Certificate</a>
+      </div>
+    </div>
+  `;
+  certGrid.appendChild(el);
+});
+
+/* ---------- Modal logic ---------- */
+const modal = document.getElementById('modal');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
+const modalClose = document.getElementById('modalClose');
+
+document.addEventListener('click', (e)=>{
+  if(e.target.matches('.openModal')){
+    const title = e.target.dataset.title;
+    const data = projects.find(x=>x.title===title);
+    modalTitle.textContent = data.title;
+    modalBody.innerHTML = `<img src="${data.img}" class="w-full h-64 object-cover rounded-md mb-3"/><div class="text-slate-300">${data.long}</div>`;
+    modal.classList.remove('hidden'); modal.classList.add('flex');
+  }
+});
+modalClose.addEventListener('click', ()=>{ modal.classList.add('hidden'); modal.classList.remove('flex'); modalBody.innerHTML=''; });
+modal.addEventListener('click', (e)=>{ if(e.target===modal){ modal.classList.add('hidden'); modal.classList.remove('flex'); modalBody.innerHTML=''; } });
+
+/* ---------- Reveal (IntersectionObserver) ---------- */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting) entry.target.classList.add('show');
+  });
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+document.querySelectorAll('.project-card.reveal').forEach(el=>io.observe(el));
+document.querySelectorAll('.glass.reveal').forEach(el=>io.observe(el));
+
+/* ---------- progress bars ---------- */
+document.querySelectorAll('.progress > span').forEach(span=>{
+  const p = span.getAttribute('data-perc') || span.dataset.perc || '80%';
+  setTimeout(()=>{ span.style.width = p; }, 400);
+});
+
+/* ---------- contact form (local demo) ---------- */
+const contactForm = document.getElementById('contactForm');
+const formStatus = document.getElementById('formStatus');
+contactForm.addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const name = document.getElementById('cname').value.trim();
+  const email = document.getElementById('cemail').value.trim();
+  const message = document.getElementById('cmessage').value.trim();
+  if(!name || !email || !message){ formStatus.textContent = 'Please fill all fields.'; return; }
+  formStatus.textContent = `Thanks ${name}! Message prepared (demo).`;
+  contactForm.reset();
+  setTimeout(()=>formStatus.textContent = '', 4000);
+});
+
+/* ---------- header mobile menu ---------- */
+const mobileBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+function closeMobile(){ mobileMenu.classList.add('hidden'); mobileMenu.classList.remove('flex'); }
+mobileBtn?.addEventListener('click', ()=>{
+  if(mobileMenu.classList.contains('hidden')){ mobileMenu.classList.remove('hidden'); mobileMenu.classList.add('flex'); }
+  else closeMobile();
+});
+
+/* ---------- year ---------- */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ---------- profile fallback ---------- */
+const profileImg = document.getElementById('profileImg');
+profileImg.onerror = function(){ this.src = 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=8a2b1b6b1e0f2ecf9c3c9b5a8b1a0c6e'; };
+</script>
+</body>
+</html> 
