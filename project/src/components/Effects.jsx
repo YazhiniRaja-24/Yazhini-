@@ -20,7 +20,7 @@ function UserProfile() {
       <p>Email: {user.email}</p>
       <p>Username: {user.username}</p>
     </div>
-  );
+  ); 
 }
 
 export default UserProfile;

@@ -6,6 +6,7 @@ import Contact from './pages/Contact'
 import Nav from './components/Nav'
 import Effects from './components/Effects'
 import State from './hooks/State'
+
 const App = () => {
   return (
     <>
@@ -16,6 +17,7 @@ const App = () => {
         <Route path='/contact' element={<Contact />} />
         <Route path='/state' element={<State />} />
         <Route path='/effects' element={<Effects />} />
+       
       </Routes>
     </>
   )
