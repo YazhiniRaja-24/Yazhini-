@@ -1,503 +1,431 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Yazhini R | Portfolio (Dark • FCBBF5)</title>
+  <!-- Font Awesome CDN -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
 
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yazhini R | Portfolio</title>
 
-<style>
-  :root{
-    --accent: #FCBBF5;
-    /* --bg: #000000;
-    --glass: rgba(12,12,14,0.62); */
-    --bg: #1a0a2e;
---glass: rgba(26,10,46,0.62);
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    --glass-border: rgba(252,187,245,0.08);
-  }
-  html { scroll-behavior: smooth; }
-  body { margin:0; background:var(--bg); color:#eaeaf0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
-  a { color:var(--accent); }
-  .blob{position:absolute;border-radius:9999px;filter:blur(80px);opacity:.12;z-index:-10;pointer-events:none;}
-  /* animated gradient background layer (hero) */
-  .hero-bg {
-    position: absolute; inset:0; z-index:0; pointer-events:none;
-    background: radial-gradient(600px 400px at 10% 20%, rgba(252,187,245,0.06), transparent 8%),
-                radial-gradient(500px 300px at 90% 80%, rgba(176,122,255,0.05), transparent 10%);
-    mix-blend-mode: screen;
-    animation: slowMove 16s linear infinite;
-  }
-  @keyframes slowMove {
-    0% { transform: translateY(0) translateX(0) scale(1); }
-    50% { transform: translateY(-10px) translateX(6px) scale(1.02); }
-    100% { transform: translateY(0) translateX(0) scale(1); }
-  }
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-  /* glass */
-  .glass { background: var(--glass); backdrop-filter: blur(8px) saturate(120%); border:1px solid var(--glass-border); border-radius:1rem; box-shadow: 0 10px 40px rgba(0,0,0,0.65); }
+  <!-- ScrollReveal -->
+  <script src="https://unpkg.com/scrollreveal"></script>
 
-  /* reveal */
-  .reveal { opacity:0; transform: translateY(18px); transition: all .6s cubic-bezier(.2,.9,.2,1); }
-  .reveal.show { opacity:1; transform: translateY(0); }
+  <style>
+    /* Dark Galaxy Gradient Background */
+    body {
+      background: linear-gradient(-45deg, #0b0c1a, #1b1b2f, #2b2b4d, #0b0c1a);
+      background-size: 400% 400%;
+      animation: gradientBG 20s ease infinite;
+      color: white;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
 
-  /* progress bars */
-  .progress { background: rgba(255,255,255,0.04); border-radius:9999px; height:12px; overflow:hidden; }
-  .progress > span { display:block; height:100%; width:0%; background: linear-gradient(90deg,var(--accent), #b07aff); transition: width 1s ease; }
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
 
-  /* project tilt */
-  .project-card { perspective: 1000px; }
-  .project-inner { transition: transform .45s cubic-bezier(.2,.9,.2,1); transform-style: preserve-3d; }
-  .project-card:hover .project-inner { transform: rotateY(6deg) rotateX(3deg) scale(1.02); }
+    /* Floating particles canvas */
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-  /* profile */
-  .profile-rect { width: 260px; height: 320px; object-fit: cover; border-radius: 18px; border: 3px solid rgba(252,187,245,0.12); box-shadow: 0 18px 50px rgba(0,0,0,0.6); }
+    /* Glass Card Effect */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .glass-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+    }
 
-  /* certificate thumbnail */
-  .cert-thumb { width:120px; height:80px; object-fit:cover; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background: #070707; display:inline-block; }
+    /* Circular Skill Styles */
+    .circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 6px solid rgba(255,255,255,0.1);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: auto;
+      background: conic-gradient(var(--color) calc(var(--percent)*1%), rgba(255,255,255,0.1) 0%);
+      transition: all 1s ease;
+    }
+    .circle span {
+      position: absolute;
+      font-weight: bold;
+    }
 
-  /* small helpers */
-  .tag { background: rgba(252,187,245,0.09); color: var(--accent); padding: .25rem .5rem; border-radius:999px; font-size: .75rem; }
-
-  /* buttons */
-  .btn-accent { background: linear-gradient(90deg,var(--accent), #b07aff); color:#000; }
-  .btn-outline { border:1px solid rgba(252,187,245,0.14); color:var(--accent); background:transparent; }
-
-  /* modal backdrop */
-  .modal-backdrop { background: rgba(2,6,23,0.75); }
-
-  /* small responsiveness */
-  @media (max-width: 768px) {
-    .profile-rect { width: 180px; height: 230px; }
-  }
-
-  /* neon pulse for Send button */
-  .pulse { animation: pulseGlow 2.2s infinite; }
-  @keyframes pulseGlow {
-    0% { box-shadow: 0 6px 20px rgba(252,187,245,0.12); }
-    50% { box-shadow: 0 16px 36px rgba(252,187,245,0.18); }
-    100% { box-shadow: 0 6px 20px rgba(252,187,245,0.12); }
-  }
-</style>
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 50;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      padding: 2rem;
+      max-width: 600px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px; right: 20px;
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: white;
+    }
+  </style>
 </head>
-<body>
 
-  <!-- decorative blobs -->
-  <div class="blob bg-[#3b0a3b] w-96 h-96 left-[-120px] top-20"></div>
-  <div class="blob bg-[#5b0f5b] w-72 h-72 right-[-80px] bottom-32"></div>
+<body class="relative font-sans">
 
-  <!-- header -->
-  <header class="fixed w-full z-50 bg-black/60 backdrop-blur-md">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#home" class="text-xl font-extrabold" style="color:var(--accent)">Yazhini R</a>
-      <nav class="hidden md:block">
-        <ul class="flex gap-6 items-center text-sm">
-          <li><a href="#home" class="hover:underline">Home</a></li>
-          <li><a href="#about" class="hover:underline">About</a></li>
-          <li><a href="#skills" class="hover:underline">Skills</a></li>
-          <li><a href="#projects" class="hover:underline">Projects</a></li>
-          <li><a href="#certificates" class="hover:underline">Certificates</a></li>
-          <li><a href="#contact" class="hover:underline">Contact</a></li>
-        </ul>
-      </nav>
-      <div class="md:hidden">
-        <button id="mobileMenuBtn" class="p-2 text-slate-300"><i class="fas fa-bars"></i></button>
+  <!-- Floating Particles -->
+  <canvas id="particles"></canvas>
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 w-full flex justify-between items-center p-6 z-20 backdrop-blur-md">
+    <h1 class="text-xl font-bold text-pink-400">YAZHINI R</h1>
+    <ul class="flex gap-6 text-white font-medium">
+      <li><a href="#home" class="hover:text-pink-400">Home</a></li>
+      <li><a href="#about" class="hover:text-pink-400">About</a></li>
+      <li><a href="#skills" class="hover:text-pink-400">Skills</a></li>
+      <li><a href="#projects" class="hover:text-pink-400">Projects</a></li>
+      <li><a href="#certifications" class="hover:text-pink-400">Certifications</a></li>
+      <li><a href="#contact" class="hover:text-pink-400">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="min-h-screen flex flex-col md:flex-row items-center justify-center relative z-10 px-6 md:px-24">
+    <div class="flex-1 text-center md:text-left mb-10 md:mb-0">
+      <h1 class="text-4xl md:text-6xl font-bold">Hello, I'm <span class="text-pink-400">Yazhini R</span></h1>
+      <p class="mt-6 text-lg md:text-xl">A passionate frontend developer creating beautiful, responsive, and interactive websites & apps.</p>
+      <div class="mt-8 flex justify-center md:justify-start gap-4">
+        <a href="#projects" class="bg-gradient-to-r from-pink-400 to-purple-400 px-6 py-3 rounded-lg font-medium hover:opacity-90 transition">View Projects</a>
+        <a href="#contact" class="border border-pink-400 px-6 py-3 rounded-lg font-medium hover:bg-pink-400 hover:text-black transition">Hire Me</a>
       </div>
     </div>
-  </header>
-
-  <!-- mobile menu -->
-  <div id="mobileMenu" class="fixed inset-0 z-40 hidden modal-backdrop items-start pt-28">
-    <div class="mx-4 mt-6 glass p-4 w-full rounded-lg">
-      <ul class="flex flex-col gap-3">
-        <li><a href="#home" class="block py-2" onclick="closeMobile()">Home</a></li>
-        <li><a href="#about" class="block py-2" onclick="closeMobile()">About</a></li>
-        <li><a href="#skills" class="block py-2" onclick="closeMobile()">Skills</a></li>
-        <li><a href="#projects" class="block py-2" onclick="closeMobile()">Projects</a></li>
-        <li><a href="#certificates" class="block py-2" onclick="closeMobile()">Certificates</a></li>
-        <li><a href="#contact" class="block py-2" onclick="closeMobile()">Contact</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <main class="pt-28 relative">
-
-    <!-- animated hero background -->
-    <div class="hero-bg"></div>
-
-    <!-- HERO -->
-    <section id="home" class="max-w-6xl mx-auto px-6 py-12 grid lg:grid-cols-2 gap-8 items-center relative z-10">
-      <!-- left column -->
-      <div class="reveal">
-        <h1 class="text-4xl md:text-5xl font-extrabold mb-3" style="color:var(--accent)">Hello, I'm <span style="color:#fff">Yazhini R</span></h1>
-        <p class="text-slate-300 max-w-2xl mb-5">Frontend Developer & Designer — I build modern, accessible web and mobile experiences using React, Flutter, and MERN stack. I focus on polished UI, smooth micro-interactions and real-world problem solving.</p>
-
-        <div class="flex flex-wrap gap-3 items-center">
-          <a href="#projects" class="btn-accent px-5 py-3 rounded-full font-semibold shadow">View Projects</a>
-          <a href="mailto:yazhinir23cse@srishakthi.ac.in" class="btn-outline px-5 py-3 rounded-full font-medium">Hire Me</a>
-        </div>
-
-        <div class="mt-6 text-slate-300">
-          <div class="flex items-center gap-3">
-            <i class="fas fa-phone"></i>
-            <span>6381073058</span>
-            <span class="mx-2">•</span>
-            <i class="fas fa-envelope"></i>
-            <a href="mailto:yazhinir23cse@srishakthi.ac.in" style="color:var(--accent)" class="hover:underline">yazhinir23cse@srishakthi.ac.in</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- right column: profile + contact card -->
-      <div class="flex justify-center lg:justify-end">
-        <div class="space-y-4">
-          <div class="glass p-4 flex items-center justify-center">
-            <!-- rounded-rectangle profile image (online placeholder used; replace if you have local) -->
-           <img id="profileImg" src="images/IMG_2178.JPG" alt="Profile" class="profile-rect" />
-          </div>
-
-          <div class="glass p-4">
-            <h4 class="text-lg font-semibold" style="color:var(--accent)">Contact</h4>
-            <p class="text-slate-300 mt-1">Phone: <strong class="text-white">6381073058</strong></p>
-            <p class="text-slate-300">Email: <a href="mailto:yazhinir23cse@srishakthi.ac.in" style="color:var(--accent)">yazhinir23cse@srishakthi.ac.in</a></p>
-            <div class="mt-3 flex gap-3">
-              <a href="https://www.linkedin.com/in/yazhini-r-0ba8b8293/" target="_blank" class="glass p-2 rounded-md"><i class="fab fa-linkedin" style="color:var(--accent)"></i></a>
-              <a href="https://github.com/YazhiniRaja-24" target="_blank" class="glass p-2 rounded-md"><i class="fab fa-github" style="color:var(--accent)"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about" class="max-w-6xl mx-auto px-6 py-8 reveal">
-      <div class="glass p-6 grid md:grid-cols-2 gap-6">
-        <div>
-          <h3 class="text-2xl font-bold" style="color:var(--accent)">About Me</h3>
-          <p class="text-slate-300 mt-3">I am a Computer Science student (BE CSE) at Sri Shakthi Institute. I build web & mobile applications with a focus on UI/UX, accessibility and real-world problem solving. I enjoy machine learning and cultural-tech work.</p>
-        </div>
-        <div>
-          <h4 class="font-semibold" style="color:var(--accent)">Academic & Experience</h4>
-          <ul class="mt-3 text-slate-300 space-y-2 text-sm">
-            <li><strong>BE - Computer Science & Engineering</strong> — Sri Shakthi Institute (Current, 83% expected 2027)</li>
-            <li><strong>HSC</strong> — Metro Matriculation Higher Secondary School — 86.33% (2023)</li>
-            <li><strong>SSLC</strong> — SRSI Matriculation Higher Secondary School — 91% (2021)</li>
-            <li><strong>MERN Stack Internship</strong> — Jun 2025</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- SKILLS -->
-    <section id="skills" class="max-w-6xl mx-auto px-6 py-8 reveal">
-      <h3 class="text-2xl font-bold" style="color:var(--accent)">Skills</h3>
-      <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
-        <!-- Java -->
-        <div class="glass p-4">
-          <div class="flex items-center justify-between">
-            <div><i class="fab fa-java text-xl" style="color:var(--accent)"></i><h4 class="font-semibold mt-1">Java</h4></div>
-            <span class="tag">Pro</span>
-          </div>
-          <div class="mt-3 progress"><span data-perc="80%"></span></div>
-        </div>
-        <!-- JavaScript -->
-        <div class="glass p-4">
-          <div class="flex items-center justify-between">
-            <div><i class="fab fa-js-square text-xl" style="color:var(--accent)"></i><h4 class="font-semibold mt-1">JavaScript</h4></div>
-            <span class="tag">ES6+</span>
-          </div>
-          <div class="mt-3 progress"><span data-perc="76%"></span></div>
-        </div>
-        <!-- MySQL -->
-        <div class="glass p-4">
-          <div class="flex items-center justify-between">
-            <div><i class="fas fa-database text-xl" style="color:var(--accent)"></i><h4 class="font-semibold mt-1">MySQL</h4></div>
-            <span class="tag">DB</span>
-          </div>
-          <div class="mt-3 progress"><span data-perc="85%"></span></div>
-        </div>
-        <!-- MongoDB -->
-        <div class="glass p-4">
-          <div class="flex items-center justify-between">
-            <div><i class="fas fa-server text-xl" style="color:var(--accent)"></i><h4 class="font-semibold mt-1">MongoDB</h4></div>
-            <span class="tag">NoSQL</span>
-          </div>
-          <div class="mt-3 progress"><span data-perc="80%"></span></div>
-        </div>
-        <!-- Flutter -->
-        <div class="glass p-4">
-          <div class="flex items-center justify-between">
-            <div><i class="fas fa-mobile-alt text-xl" style="color:var(--accent)"></i><h4 class="font-semibold mt-1">Flutter</h4></div>
-            <span class="tag">Mobile</span>
-          </div>
-          <div class="mt-3 progress"><span data-perc="75%"></span></div>
-        </div>
-        <!-- React -->
-        <div class="glass p-4">
-          <div class="flex items-center justify-between">
-            <div><i class="fab fa-react text-xl" style="color:var(--accent)"></i><h4 class="font-semibold mt-1">React.js</h4></div>
-            <span class="tag">Frontend</span>
-          </div>
-          <div class="mt-3 progress"><span data-perc="70%"></span></div>
-        </div>
-        <!-- MS Office -->
-        <div class="glass p-4">
-          <div class="flex items-center justify-between">
-            <div><i class="fas fa-file-alt text-xl" style="color:var(--accent)"></i><h4 class="font-semibold mt-1">MS Office</h4></div>
-            <span class="tag">Tools</span>
-          </div>
-          <div class="mt-3 progress"><span data-perc="80%"></span></div>
-        </div>
-        <!-- HTML -->
-        <div class="glass p-4">
-          <div class="flex items-center justify-between">
-            <div><i class="fab fa-html5 text-xl" style="color:var(--accent)"></i><h4 class="font-semibold mt-1">HTML</h4></div>
-            <span class="tag">Markup</span>
-          </div>
-          <div class="mt-3 progress"><span data-perc="96%"></span></div>
-        </div>
-        <!-- CSS / Bootstrap -->
-        <div class="glass p-4">
-          <div class="flex items-center justify-between">
-            <div><i class="fab fa-css3-alt text-xl" style="color:var(--accent)"></i><h4 class="font-semibold mt-1">CSS / Bootstrap</h4></div>
-            <span class="tag">Styling</span>
-          </div>
-          <div class="mt-3 progress"><span data-perc="92%"></span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROJECTS -->
-    <section id="projects" class="max-w-6xl mx-auto px-6 py-8 reveal">
-      <h3 class="text-2xl font-bold" style="color:var(--accent)">Projects</h3>
-      <div id="projectsGrid" class="grid md:grid-cols-2 gap-6 mt-4"></div>
-    </section>
-
-    <!-- CERTIFICATES -->
-    <section id="certificates" class="max-w-6xl mx-auto px-6 py-8 reveal">
-      <h3 class="text-2xl font-bold" style="color:var(--accent)">Certificates</h3>
-      <div id="certGrid" class="grid md:grid-cols-2 gap-6 mt-4"></div>
-    </section>
-
-    <!-- CONTACT
-    <section id="contact" class="max-w-6xl mx-auto px-6 py-8 reveal">
-      <h3 class="text-2xl font-bold" style="color:var(--accent)">Contact</h3>
-      <div class="grid md:grid-cols-2 gap-6 mt-4">
-        <form id="contactForm" class="glass p-6 space-y-4">
-          <input id="cname" placeholder="Your name" required />
-          <input id="cemail" type="email" placeholder="Your email" required />
-          <textarea id="cmessage" rows="5" placeholder="Your message" required></textarea>
-          <button id="sendBtn" class="btn-accent px-4 py-2 rounded-md w-full pulse">Send Message</button>
-          <p id="formStatus" class="text-slate-300 text-sm"></p>
-        </form>
-
-        <div class="space-y-4">
-          <div class="glass p-4">
-            <h4 class="font-semibold" style="color:var(--accent)">Get in touch</h4>
-            <p class="text-slate-300 mt-2">Phone: <strong class="text-white">6381073058</strong></p>
-            <p class="text-slate-300">Email: <a href="mailto:yazhinir23cse@srishakthi.ac.in" style="color:var(--accent)">yazhinir23cse@srishakthi.ac.in</a></p>
-            <p class="mt-3 italic text-slate-400">"Let’s build something amazing together."</p>
-          </div>
-
-          <div class="glass p-4">
-            <h4 class="font-semibold" style="color:var(--accent)">Social</h4>
-            <div class="flex gap-3 mt-3">
-              <a href="https://www.linkedin.com/in/yazhini-r-0ba8b8293/" target="_blank" class="glass p-3 rounded-md"><i class="fab fa-linkedin" style="color:var(--accent)"></i></a>
-              <a href="https://github.com/YazhiniRaja-24" target="_blank" class="glass p-3 rounded-md"><i class="fab fa-github" style="color:var(--accent)"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> -->
-
-    <!-- CONTACT -->
-  <section id="contact" class="max-w-6xl mx-auto px-6 py-8 reveal">
-    <h3 class="text-2xl font-bold mb-4" style="color:var(--accent)">Contact</h3>
-    <div class="grid md:grid-cols-2 gap-8 mt-4">
-      <!-- Form -->
-      <form id="contactForm" class="glass p-6 space-y-4 flex flex-col">
-        <input id="cname" class="p-3 rounded-md bg-black/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-400" placeholder="Your Name" required />
-        <input id="cemail" type="email" class="p-3 rounded-md bg-black/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-400" placeholder="Your Email" required />
-        <textarea id="cmessage" rows="5" class="p-3 rounded-md bg-black/50 border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-400" placeholder="Your Message" required></textarea>
-        <button id="sendBtn" class="btn-accent px-4 py-3 rounded-md w-full pulse font-semibold">Send Message</button>
-        <p id="formStatus" class="text-slate-300 text-sm mt-2"></p>
-      </form>
-
-      <!-- Info & Social -->
-      <div class="space-y-4">
-        <div class="glass p-6">
-          <h4 class="font-semibold mb-2" style="color:var(--accent)">Get in Touch</h4>
-          <p class="text-slate-300">Phone: <strong class="text-white">6381073058</strong></p>
-          <p class="text-slate-300">Email: <a href="mailto:yazhinir23cse@srishakthi.ac.in" style="color:var(--accent)">yazhinir23cse@srishakthi.ac.in</a></p>
-          <p class="mt-3 italic text-slate-400">"Let’s build something amazing together."</p>
-        </div>
-        <div class="glass p-6 text-center">
-          <h4 class="font-semibold mb-3" style="color:var(--accent)">Social Links</h4>
-          <div class="flex justify-center gap-4">
-            <a href="https://www.linkedin.com/in/yazhini-r-0ba8b8293/" target="_blank" class="glass p-3 rounded-md"><i class="fab fa-linkedin" style="color:var(--accent); font-size:1.25rem;"></i></a>
-            <a href="https://github.com/YazhiniRaja-24" target="_blank" class="glass p-3 rounded-md"><i class="fab fa-github" style="color:var(--accent); font-size:1.25rem;"></i></a>
-          </div>
-        </div>
+    <div class="flex-1 flex justify-center">
+      <div class="glass-card">
+        <img src="images/IMG_2178.JPG" alt="Yazhini R" class="rounded-lg w-64 md:w-80">
       </div>
     </div>
   </section>
 
-    <footer class="mt-8">
-      <div class="max-w-6xl mx-auto px-6 py-6 text-center text-slate-400">© <span id="year"></span> Yazhini R • Built with ❤️</div>
-    </footer>
-  </main>
+  <!-- About -->
+  <section id="about" class="py-20 px-6 md:px-24">
+  <h2 class="text-3xl font-bold mb-8 text-center">About Me</h2>
 
-  <!-- Project modal -->
-  <div id="modal" class="fixed inset-0 hidden items-center justify-center modal-backdrop z-50">
-    <div class="glass max-w-3xl w-full mx-4 overflow-hidden">
-      <div class="flex items-center justify-between p-4 border-b border-white/4">
-        <strong id="modalTitle" class="text-lg"></strong>
-        <button id="modalClose" class="text-slate-200 text-xl">&times;</button>
+  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+    <!-- Left: Profile + Bio -->
+    <div class="glass-card p-6 flex flex-col items-center text-center md:text-left md:items-start">
+      <div class="flex items-center gap-6 w-full">
+        <img src="images/IMG_2178.JPG" alt="Yazhini R" class="w-28 h-28 rounded-full object-cover border-4 border-pink-400">
+        <div>
+          <h3 class="text-2xl font-semibold">Yazhini R</h3>
+          <p class="text-sm text-white/70 mt-1">BE CSE • Frontend Developer</p>
+        </div>
       </div>
-      <div id="modalBody" class="p-4"></div>
+
+      <p class="mt-6 text-white/85">
+        I'm a 2nd year BE CSE student at Sri Shakthi Institute of Engineering and Technology (current: <strong>84%</strong>).
+        I build interactive, responsive user interfaces and mobile apps using <strong>React, Flutter</strong> and the <strong>MERN</strong> stack.
+        I enjoy polishing UI animations, accessibility-focused design, and creating small tools that help people work faster.
+      </p>
+
+      <!-- Stats -->
+      <div class="mt-6 w-full grid grid-cols-3 gap-4 text-center">
+        <div>
+          <div class="text-2xl font-bold">8.4</div>
+          <div class="text-sm text-white/70">Current CGPA</div>
+        </div>
+        <div>
+          <div class="text-2xl font-bold">4</div>
+          <div class="text-sm text-white/70">Projects</div>
+        </div>
+        <div>
+          <div class="text-2xl font-bold">1</div>
+          <div class="text-sm text-white/70">Internship</div>
+        </div>
+      </div>
+
+     
+
+      <!-- CTA -->
+<div class="mt-6 flex gap-4 w-full justify-center">
+  <a href="certificates/resume.pdf" class="px-5 py-2 rounded-lg border border-pink-400 hover:bg-pink-400 hover:text-black transition text-sm" download>
+  Download Resume
+</a>
+
+  <a href="#contact" class="px-5 py-2 rounded-lg bg-pink-400 hover:opacity-90 transition text-sm">
+    Hire Me
+  </a>
+</div>
+
+<!-- Social small -->
+<div class="mt-4 w-full flex gap-4 justify-center text-xl">
+  <a href="https://www.linkedin.com/in/yazhini-r-0ba8b8293/" target="_blank" class="text-pink-400"><i class="fab fa-linkedin"></i></a>
+  <a href="https://github.com/YazhiniRaja-24" target="_blank" class="text-pink-400"><i class="fab fa-github"></i></a>
+  <a href="https://www.instagram.com/" target="_blank" class="text-pink-400"><i class="fab fa-instagram"></i></a>
+</div>
+
+    </div>
+
+    <!-- Right: Education / Timeline -->
+    <div class="glass-card p-6">
+      <h3 class="text-xl font-semibold mb-4">Education & Experience</h3>
+
+      <div class="space-y-4">
+        <div class="flex items-start gap-4">
+          <div class="w-3 h-3 rounded-full bg-pink-400 mt-2"></div>
+          <div>
+            <div class="font-semibold">BE — Computer Science (Sri Shakthi Institute)</div>
+            <div class="text-sm text-white/70">2023 — Present • Current CGPA: 83%</div>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="w-3 h-3 rounded-full bg-pink-400 mt-2"></div>
+          <div>
+            <div class="font-semibold">MERN Internship — NEXORA</div>
+            <div class="text-sm text-white/70">Worked on building frontend components & small backend endpoints.</div>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="w-3 h-3 rounded-full bg-pink-400 mt-2"></div>
+          <div>
+            <div class="font-semibold">Projects</div>
+            <div class="text-sm text-white/70">Decorkart • Facial Emotion Recognition • NoteBuddy • Ancient Tamil Decoding</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- small paragraph -->
+      <p class="mt-6 text-white/80">
+        I'm constantly learning and exploring new frontend patterns, animation libraries, and performance optimizations. I like turning UI ideas into polished products.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Skills -->
+  <section id="skills" class="py-20 px-6 md:px-24 flex flex-col items-center text-center">
+  <h2 class="text-3xl font-bold mb-6">Skills</h2>
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+    <div><div class="circle" style="--color:#f97316;--percent:80;"><span>HTML</span></div></div>
+    <div><div class="circle" style="--color:#2563eb;--percent:80;"><span>CSS</span></div></div>
+    <div><div class="circle" style="--color:#6b7280;--percent:75;"><span>Bootstrap</span></div></div>
+    <div><div class="circle" style="--color:#facc15;--percent:70;"><span>Java</span></div></div>
+    <div><div class="circle" style="--color:#eab308;--percent:70;"><span>JavaScript</span></div></div>
+    <div><div class="circle" style="--color:#3b82f6;--percent:70;"><span>Flutter</span></div></div>
+    <div><div class="circle" style="--color:#22c55e;--percent:75;"><span>MongoDB</span></div></div>
+    <div><div class="circle" style="--color:#14b8a6;--percent:80;"><span>MySQL</span></div></div>
+    <div><div class="circle" style="--color:#ec4899;--percent:70;"><span>React.js</span></div></div>
+    <div><div class="circle" style="--color:#9333ea;--percent:75;"><span>MS Office</span></div></div>
+  </div>
+</section>
+
+
+  <!-- Projects -->
+ <section id="projects" class="py-20 px-6 md:px-24">
+  <h2 class="text-3xl font-bold mb-6 text-center">Projects</h2>
+
+  <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- The Decorkart -->
+    <div class="glass-card text-center">
+      <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=900&q=80" class="rounded-lg mb-3 w-full h-48 object-cover">
+      <h3 class="font-semibold text-lg mb-2">The Decorkart</h3>
+      <p>Home Decor e-commerce site with product catalog, cart, and checkout features.</p>
+      <div class="flex justify-center gap-4 mt-4">
+        <button class="view-btn bg-pink-400 px-4 py-2 rounded"
+          data-title="The Decorkart"
+          data-desc="An elegant home decor website built with React and Tailwind CSS. Includes responsive design, shopping cart, and checkout flow."
+          data-img="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=900&q=80">View</button>
+        <a href="https://github.com/YazhiniRaja-24/TheDecorkart" target="_blank" class="border border-pink-400 px-4 py-2 rounded hover:bg-pink-400">Source</a>
+      </div>
+    </div>
+
+    <!-- Facial Emotion Recognition -->
+    <div class="glass-card text-center">
+      <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=900&q=80" class="rounded-lg mb-3 w-full h-48 object-cover">
+      <h3 class="font-semibold text-lg mb-2">Facial Emotion Recognition</h3>
+      <p>Detects human emotions using computer vision and ML models.</p>
+      <div class="flex justify-center gap-4 mt-4">
+        <button class="view-btn bg-pink-400 px-4 py-2 rounded"
+          data-title="Facial Emotion Recognition"
+          data-desc="Uses OpenCV and deep learning to identify emotions from real-time webcam input. Provides emotion tracking with accuracy and live detection."
+          data-img="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=900&q=80">View</button>
+        <a href="https://github.com/YazhiniRaja-24/Facial-Emotion-Recognition" target="_blank" class="border border-pink-400 px-4 py-2 rounded hover:bg-pink-400">Source</a>
+      </div>
+    </div>
+
+    <!-- NoteBuddy -->
+    <div class="glass-card text-center">
+      <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80" class="rounded-lg mb-3">
+      <h3 class="font-semibold text-lg mb-2">NoteBuddy</h3>
+      <p>Smart note organizer + voice recorder with AI summarization.</p>
+      <div class="flex justify-center gap-4 mt-4">
+        <button class="view-btn bg-pink-400 px-4 py-2 rounded"
+          data-title="NoteBuddy"
+          data-desc="Flutter-based note-taking app with local storage, AI summarizer, and voice-to-text features for productivity."
+          data-img="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b03?auto=format&fit=crop&w=900&q=80">View</button>
+        <a href="https://github.com/YazhiniRaja-24/NoteBuddy" target="_blank" class="border border-pink-400 px-4 py-2 rounded hover:bg-pink-400">Source</a>
+      </div>
+    </div>
+
+    <!-- Ancient Tamil Decoding -->
+    <div class="glass-card text-center">
+      <img src="https://images.unsplash.com/photo-1606112219348-204d7d8b94ee?auto=format&fit=crop&w=900&q=80" class="rounded-lg mb-3 w-full h-48 object-cover">
+      <h3 class="font-semibold text-lg mb-2">Ancient Tamil Decoding</h3>
+      <p>AI-powered model to translate and understand ancient Tamil inscriptions.</p>
+      <div class="flex justify-center gap-4 mt-4">
+        <button class="view-btn bg-pink-400 px-4 py-2 rounded"
+          data-title="Ancient Tamil Decoding"
+          data-desc="A deep learning model trained to decode Tamil-Brahmi inscriptions and provide modern Tamil translations."
+          data-img="https://images.unsplash.com/photo-1606112219348-204d7d8b94ee?auto=format&fit=crop&w=900&q=80">View</button>
+        <a href="https://github.com/YazhiniRaja-24/Ancient-Tamil-Decoding" target="_blank" class="border border-pink-400 px-4 py-2 rounded hover:bg-pink-400">Source</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Certifications -->
+  <section id="certifications" class="py-20 px-6 md:px-24 flex flex-col items-center text-center">
+    <h2 class="text-3xl font-bold mb-6">Certifications</h2>
+    <div class="grid md:grid-cols-3 gap-6 w-full max-w-4xl">
+     
+      <div class="glass-card fade-slide text-center">
+        <img src="images/ss1.png" alt="Certificate" class="rounded-lg mb-3">
+        <p>Atos Srijan-2025</p>
+      </div>
+      <div class="glass-card fade-slide text-center">
+        <img src="images/ss2.png" alt="Certificate" class="rounded-lg mb-3">
+        <p>MHTechin Innovation challenge-2025</p>
+      </div>
+      <div class="glass-card fade-slide text-center">
+        <img src="images/ss3.png" alt="Certificate" class="rounded-lg mb-3">
+        <p>MHTechin Innovation challenge-2025</p>
+      </div>
+      <div class="glass-card fade-slide text-center">
+        <img src="images/ss4.png" alt="Certificate" class="rounded-lg mb-3">
+        <p>MHTechin Innovation challenge-2025</p>
+      </div>
+      <div class="glass-card fade-slide text-center">
+        <img src="images/ss5.png" alt="Certificate" class="rounded-lg mb-3">
+        <p>Buildfolio</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  
+<section id="contact" class="py-20 px-6 md:px-24 bg-black/40 text-white">
+  <h2 class="text-3xl font-bold mb-10 text-center">Contact Me</h2>
+
+  <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+    <!-- Left: Contact Form -->
+    <div class="glass-card p-6 rounded-2xl">
+      <h3 class="text-2xl font-semibold mb-4">Send a Message</h3>
+      <form class="flex flex-col gap-4">
+        <input type="text" placeholder="Your Name" class="p-3 rounded-lg bg-white/10 border border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-400">
+        <input type="email" placeholder="Your Email" class="p-3 rounded-lg bg-white/10 border border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-400">
+        <textarea placeholder="Your Message" rows="4" class="p-3 rounded-lg bg-white/10 border border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-400"></textarea>
+        <button type="submit" class="bg-pink-500 hover:bg-pink-600 text-white py-2 rounded-lg transition-all">Send Message</button>
+      </form>
+    </div>
+
+    <!-- Right: Get in Touch -->
+    <div class="glass-card p-6 rounded-2xl text-center md:text-left">
+      <h3 class="text-2xl font-semibold mb-4">Get in Touch</h3>
+      <p class="mb-2"><strong>Email:</strong> 
+        <a href="mailto:yazhinir23cse@srishakthi.ac.in" class="text-pink-400 hover:underline">
+          yazhinir23cse@srishakthi.ac.in
+        </a>
+      </p>
+      <p class="mb-2"><strong>Phone:</strong> 6381073058</p>
+
+      <p class="mt-6 mb-2 font-medium">Follow Me:</p>
+      <div class="flex gap-6 mt-4 text-2xl justify-center md:justify-start">
+        <a href="https://www.linkedin.com/in/yazhini-r-0ba8b8293/" target="_blank" class="text-pink-400 hover:text-pink-300 transition-all">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/YazhiniRaja-24" target="_blank" class="text-pink-400 hover:text-pink-300 transition-all">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.instagram.com/" target="_blank" class="text-pink-400 hover:text-pink-300 transition-all">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="mailto:yazhinir23cse@srishakthi.ac.in" class="text-pink-400 hover:text-pink-300 transition-all">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Modal -->
+  <div id="projectModal" class="modal">
+    <div class="modal-content relative">
+      <span class="close-btn">&times;</span>
+      <img id="modalImg" class="rounded-lg mb-4 mx-auto w-80">
+      <h3 id="modalTitle" class="text-2xl font-bold mb-2"></h3>
+      <p id="modalDesc"></p>
     </div>
   </div>
 
-<script>
-/* ---------------- Data ---------------- */
-const projects = [
-  {
-    title: "E-commerce Website for Home Decor (The Decorkart)",
-    short: "Home decor e-commerce: product view, cart, checkout, responsive UI.",
-    img: "images/bg6.jpeg",
+  <!-- Scripts -->
+  <script>
+    // Particle background
+    const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');let pArray=[];
+    function initParticles(){canvas.width=innerWidth;canvas.height=innerHeight;pArray=[];
+      for(let i=0;i<100;i++){pArray.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,size:Math.random()*3+1,speedX:Math.random()*0.5-0.25,speedY:Math.random()*0.5-0.25});}}
+    function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);pArray.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fillStyle='rgba(255,255,255,0.2)';ctx.fill();p.x+=p.speedX;p.y+=p.speedY;if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;if(p.y<0)p.y=canvas.height;if(p.y>canvas.height)p.y=0;});requestAnimationFrame(animate);}
+    initParticles();animate();addEventListener('resize',initParticles);
 
-    long: `<p>Home Decor is a stylish e-commerce website where users can explore and buy elegant decor items to beautify their living spaces. Features: product view, add-to-cart, checkout flow, responsive layouts and modern UI.</p>`
-  },
-  {
-    title: "Facial Emotion Recognition",
-    short: "Detects emotions from facial expressions using CV + ML.",
-    img: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=0c2efb7a7e4a6b9d5d6c7a8b9c0d1e2f",
-    long: `<p>Facial Emotion Recognition identifies emotions from facial expressions using computer vision and machine learning (CNNs). Real-time webcam inference and evaluation on emotion datasets.</p>`
-  },
-  {
-    title: "Ancient Tamil Decoding",
-    short: "Translates ancient Tamil inscriptions into modern Tamil for preservation.",
-    img: "https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=2d6a1c3b4f5a6b7c8d9e0a1b2c3d4e5f",
-    long: `<p>Ancient Tamil Decoding translates ancient inscriptions into modern Tamil to preserve cultural heritage. Uses OCR, script mapping and expert-reviewed outputs to ensure accuracy.</p>`
-  },
-  {
-    title: "NoteBuddy",
-    short: "Smart note organizer with AI summarization & voice recording.",
-    img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=b9f2a1a3c2d3e4f5a6b7c8d9e0f1a2b3",
-    long: `<p>NoteBuddy is a smart note organizer featuring add/edit/delete, AI summarization, voice recording, and color tagging. Local-first with optional cloud sync.</p>`
-  }
-];
-
-const certificates = [
-  { title: "IAENG Certificate", pdf: "certificates/IAENG.pdf", thumb: "https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=4ef2aa8edfdfb5c6a9b6d7c3e8f2b1c2", org: "IAENG" },
-  { title: "IJPREMS Publication", pdf: "certificates/IJPREMS41200037528-3.pdf", thumb: "https://images.unsplash.com/photo-1526318472351-c75fcf070dd2?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=7b9a3c8f2b6d1a4c9e5d2a3b1f3c4d5e", org: "IJPREMS" },
-  { title: "MERN Certificate", pdf: "certificates/mern_certificate.pdf", thumb: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=3a5b6c7d8e9f1a2b3c4d5e6f7a8b9c0d", org: "MERN Internship" },
-  { title: "MHTechin Certificate", pdf: "certificates/MHTechin.pdf", thumb: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6", org: "MHTechin" }
-];
-
-/* ---------- Render projects ---------- */
-const projectsGrid = document.getElementById('projectsGrid');
-projects.forEach(p=>{
-  const card = document.createElement('div');
-  card.className = 'project-card reveal';
-  card.innerHTML = `
-    <div class="project-inner glass p-4">
-      <img src="${p.img}" alt="${p.title}" class="w-full h-48 object-cover rounded-md mb-3" />
-      <h4 class="font-semibold" style="color:var(--accent)">${p.title}</h4>
-      <p class="text-slate-300 text-sm mt-1">${p.short}</p>
-      <div class="mt-3 flex gap-2">
-        <button data-title="${p.title}" class="openModal px-3 py-2 rounded-md btn-accent text-sm">Preview</button>
-        <a href="#" class="px-3 py-2 rounded-md btn-outline text-sm">Source</a>
-      </div>
-    </div>
-  `;
-  projectsGrid.appendChild(card);
-});
-
-/* ---------- Render certificates ---------- */
-const certGrid = document.getElementById('certGrid');
-certificates.forEach(c=>{
-  const el = document.createElement('div');
-  el.className = 'glass p-4 reveal flex items-center gap-4';
-  el.innerHTML = `
-    <img src="${c.thumb}" class="cert-thumb" alt="${c.title}" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg'"/>
-    <div>
-      <h4 class="font-semibold">${c.title}</h4>
-      <p class="text-slate-300 text-sm mt-1">${c.org}</p>
-      <div class="mt-3">
-        <a href="${c.pdf}" target="_blank" class="px-3 py-2 rounded-md btn-accent text-sm">View Certificate</a>
-      </div>
-    </div>
-  `;
-  certGrid.appendChild(el);
-});
-
-/* ---------- Modal logic ---------- */
-const modal = document.getElementById('modal');
-const modalTitle = document.getElementById('modalTitle');
-const modalBody = document.getElementById('modalBody');
-const modalClose = document.getElementById('modalClose');
-
-document.addEventListener('click', (e)=>{
-  if(e.target.matches('.openModal')){
-    const title = e.target.dataset.title;
-    const data = projects.find(x=>x.title===title);
-    modalTitle.textContent = data.title;
-    modalBody.innerHTML = `<img src="${data.img}" class="w-full h-64 object-cover rounded-md mb-3"/><div class="text-slate-300">${data.long}</div>`;
-    modal.classList.remove('hidden'); modal.classList.add('flex');
-  }
-});
-modalClose.addEventListener('click', ()=>{ modal.classList.add('hidden'); modal.classList.remove('flex'); modalBody.innerHTML=''; });
-modal.addEventListener('click', (e)=>{ if(e.target===modal){ modal.classList.add('hidden'); modal.classList.remove('flex'); modalBody.innerHTML=''; } });
-
-/* ---------- Reveal (IntersectionObserver) ---------- */
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting) entry.target.classList.add('show');
-  });
-},{threshold:0.12});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-document.querySelectorAll('.project-card.reveal').forEach(el=>io.observe(el));
-document.querySelectorAll('.glass.reveal').forEach(el=>io.observe(el));
-
-/* ---------- progress bars ---------- */
-document.querySelectorAll('.progress > span').forEach(span=>{
-  const p = span.getAttribute('data-perc') || span.dataset.perc || '80%';
-  setTimeout(()=>{ span.style.width = p; }, 400);
-});
-
-/* ---------- contact form (local demo) ---------- */
-const contactForm = document.getElementById('contactForm');
-const formStatus = document.getElementById('formStatus');
-contactForm.addEventListener('submit', (e)=>{
-  e.preventDefault();
-  const name = document.getElementById('cname').value.trim();
-  const email = document.getElementById('cemail').value.trim();
-  const message = document.getElementById('cmessage').value.trim();
-  if(!name || !email || !message){ formStatus.textContent = 'Please fill all fields.'; return; }
-  formStatus.textContent = `Thanks ${name}! Message prepared (demo).`;
-  contactForm.reset();
-  setTimeout(()=>formStatus.textContent = '', 4000);
-});
-
-/* ---------- header mobile menu ---------- */
-const mobileBtn = document.getElementById('mobileMenuBtn');
-const mobileMenu = document.getElementById('mobileMenu');
-function closeMobile(){ mobileMenu.classList.add('hidden'); mobileMenu.classList.remove('flex'); }
-mobileBtn?.addEventListener('click', ()=>{
-  if(mobileMenu.classList.contains('hidden')){ mobileMenu.classList.remove('hidden'); mobileMenu.classList.add('flex'); }
-  else closeMobile();
-});
-
-/* ---------- year ---------- */
-document.getElementById('year').textContent = new Date().getFullYear();
-
-/* ---------- profile fallback ---------- */
-const profileImg = document.getElementById('profileImg');
-profileImg.onerror = function(){ this.src = 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=8a2b1b6b1e0f2ecf9c3c9b5a8b1a0c6e'; };
-</script>
+    // Modal
+    const modal=document.getElementById('projectModal'),mImg=document.getElementById('modalImg'),mTitle=document.getElementById('modalTitle'),mDesc=document.getElementById('modalDesc');
+    document.querySelectorAll('.view-btn').forEach(btn=>{
+      btn.onclick=()=>{modal.style.display='flex';mTitle.textContent=btn.dataset.title;mDesc.textContent=btn.dataset.desc;mImg.src=btn.dataset.img;}
+    });
+    document.querySelector('.close-btn').onclick=()=>modal.style.display='none';
+    window.onclick=e=>{if(e.target==modal)modal.style.display='none';};
+  </script>
 </body>
-</html> 
+</html>
