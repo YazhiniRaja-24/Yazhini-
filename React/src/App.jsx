@@ -11,6 +11,11 @@ import Service from './pages/Service'
 import Navbar from './components/Navbar'
 import Products from './pages/Products'
 import ProductDetails from './pages/ProductDetails'
+import Reducer from './hooks/Reducer'
+import {createContext} from 'react'
+
+export const userContext = createContext()
+
 const App = () => {
   return (
     <>
@@ -23,12 +28,11 @@ const App = () => {
         <Route path ="/service" element ={<Service/>}/>
         <Route path ="/products" element ={<Products/>}/>
         <Route path ="/products/:id" element ={<ProductDetails/>}/>
+        <Route path ="/state" element ={<State/>}/>
+        <Route path ="/form" element ={<Form/>}/>
+        <Route path ="/profile" element ={<Profile/>}/>
+        <Route path="/reducer" element ={<Reducer/>}/>
     </Routes>
-      {/* <div> App </div> 
-      <Parent/>
-      <Profile name ="Yazhini" age={19} skills={["html","css","js","JAVA"]}/>
-      <State/>
-      <Form/> */}
     </>
   )
 }

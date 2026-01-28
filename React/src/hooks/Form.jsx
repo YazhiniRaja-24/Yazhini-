@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useEffect,useState } from 'react'
 const Form = () => {
     const [form,setForm] = useState({
         name:"",
@@ -7,10 +7,13 @@ const Form = () => {
         age:"",
         department:""
     })
+    useEffect(()=>{
+          console.log("from useEffect")//will run once when component mounts and whenever form state changes and re-renders
+        })
     const handleChange=(e)=>{
       const {name,value} = e.target
       setForm((prev)=>({
-        ...prev, //spread operator
+        ...prev, //spread operator used for copying previous elements
         [name]:value
       }))
     }
